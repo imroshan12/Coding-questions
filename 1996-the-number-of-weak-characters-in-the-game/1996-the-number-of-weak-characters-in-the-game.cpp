@@ -1,12 +1,5 @@
 class Solution {
 public:
-    static bool comparator(vector<int> a, vector<int> b) {
-        if (a[0] < b[0])
-            return true;
-        else if (a[0] == b[0])
-            return a[1] < b[1];
-        return false;
-    }
     int numberOfWeakCharacters(vector<vector<int>>& props) {
         sort(props.begin(), props.end());
         int ans = 0, n = props.size();
@@ -22,8 +15,6 @@ public:
             }
             i = j;
             prevMaxDef = max(maxDef, prevMaxDef);
-            // if (i >= 0 and props[i][1] < prevMaxDef)
-            //     ans++;
         }
         return ans;
     }
