@@ -22,7 +22,14 @@ public:
         for (long long i = n; i >= 1; i--) {
             prevFactor = getFactor(binaryLen, prevFactor); 
             ans = (ans + i*prevFactor) % MOD;
-            binaryLen = findLen(i);
+            // binaryLen = findLen(i);
+            if (i == n) {
+                binaryLen = findLen(i);
+            } else if (!(i & (i+1))) {
+                binaryLen--;
+            }
+            // cout << i << " " << i-1 << " " << binaryLen << endl;
+            // binaryLen = i == n ? findLen(i) : (i & (i-1)) ? binaryLen : binaryLen-1;
         }
         return (int)ans;
     }
