@@ -1,34 +1,27 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
         if (!root) return {};
         vector<int> ans;
-        
+        // Declare a queue
         queue<TreeNode*> adr;
         adr.push(root);
         adr.push(nullptr);
-        
+        // Declare a temporary variable for accessing a pointer
         TreeNode * temp;
-        
+        // Traversing in queue until it is not empty
         while (!adr.empty()) {
             temp = adr.front();
             adr.pop();
-            
+            // If the node is not a nullptr, then perform operation
             if (temp != nullptr) {
-                if (adr.front() == nullptr) ans.push_back(temp->val);
-                if (temp->left) adr.push(temp->left);
-                if (temp->right) adr.push(temp->right);
+                if (adr.front() == nullptr) 
+                    ans.push_back(temp->val);
+                
+                if (temp->left) 
+                    adr.push(temp->left);
+                if (temp->right) 
+                    adr.push(temp->right);
             } else {
                 if (!adr.empty())
                     adr.push(nullptr);
