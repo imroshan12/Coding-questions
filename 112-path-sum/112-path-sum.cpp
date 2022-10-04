@@ -13,18 +13,19 @@ class Solution {
 private:
     int count = 0;
 public:
-    void countPaths (TreeNode * root, int & targetSum, int currSum) {
-        if (!root) return;
+    bool haspath (TreeNode * root, int & targetSum, int currSum) {
+        if (!root) return 0;
         currSum += root->val;
-        if (!root->left and !root->right and currSum == targetSum) {
-            count++;
-            return;
+        if (!root->left and !root->right) {
+            if (currSum == targetSum)
+                return true;
+            return false;
         }
-        countPaths(root->left, targetSum, currSum);
-        countPaths(root->right, targetSum, currSum);
+        bool left = haspath(root->left, targetSum, currSum);
+        bool right = haspath(root->right, targetSum, currSum);
+        return left or right;
     }
     bool hasPathSum(TreeNode* root, int targetSum) {
-        countPaths(root, targetSum, 0);
-        return count;
+        return haspath(root, targetSum, 0);
     }
 };
