@@ -1,18 +1,23 @@
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
-        unordered_map<int, int> hash;
-        vector<int> ans;
-        for (int i = 0; i < nums.size(); i++) {
-            hash[nums[i]]++;
-            if (hash[nums[i]] > 1)
-            ans.push_back(nums[i]);
-        }
-        for (int i = 1; i <= nums.size(); i++) {
-            if (hash[i] == 0) {
-                ans.push_back(i);
+        vector<int> detect, aux(10001);
+        int culp;
+        for(int i = 0; i < nums.size(); i++)
+        {
+            aux[nums[i]] ^= nums[i];
+            if(aux[nums[i]] == 0)
+            {
+                culp = nums[i];
+                break;
             }
         }
-        return ans;
+        detect.push_back(culp);
+        int actualSum = (nums.size()+1)*nums.size()/2;
+        int expSum = accumulate(nums.begin(), nums.end(), 0);
+        int error = actualSum - expSum;
+        // cout << error << " " << culp << endl;
+        detect.push_back(culp+error);
+        return detect;
     }
 };
